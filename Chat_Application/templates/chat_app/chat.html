@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <div class="users-menu">
+      <ul>
+         {% for user in users %}
+         <li onclick="openChat('{{ user.id }}')">{{ user.username }}</li>
+         {% endfor %}
+      </ul>
+   </div>
+   <div id="chat-box"></div>
+   <div id="message-input">
+      <input type="text" id="message" placeholder="Type your message">
+      <button onclick="sendMessage()">Send</button>
+   </div>
+   <script>
+      let chatSocket;
+      function openChat(userId) {
+         if (chatSocket) {
+            chatSocket.close();
+         }
+         const chatBox = document.getElementById('chat-box');
+         chatBox.innerHTML = '';
+         fetch(`/messages/${userId}/`)
+            .then(response => response.json())
+            .then(messages => {
+               messages.forEach(msg => {
+                  chatBox.innerHTML += `<p><b>${msg.sender}:</b> ${msg.message}</p>`;
+               });
+            });
+         chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${userId}/`);
+         chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            chatBox.innerHTML += `<p><b>${data.sender}:</b> ${data.message}</p>`;
+         };
+         chatSocket.onclose = function () {
+            console.log('WebSocket closed.');
+         };
+      }
+
+      function sendMessage() {
+         const messageInput = document.getElementById('message');
+         const message = messageInput.value;
+         if (chatSocket && message) {
+            chatSocket.send(JSON.stringify({ 'message': message }));
+            messageInput.value = '';
+         }
+      }
+   </script>
+
+</body>
+</html>
