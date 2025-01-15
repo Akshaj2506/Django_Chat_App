@@ -21,9 +21,6 @@
    <script>
       let chatSocket;
       function openChat(userId) {
-         if (chatSocket) {
-            chatSocket.close();
-         }
          const chatBox = document.getElementById('chat-box');
          chatBox.innerHTML = '';
          fetch(`/messages/${userId}/`)
