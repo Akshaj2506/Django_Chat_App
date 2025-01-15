@@ -5,10 +5,15 @@ from django.contrib.auth import authenticate, login
 from .models import ChatMessage
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def chat(request):
    users = User.objects.exclude(id=request.user.id)
    return render(request, 'chat_app/chat.html', {'users': users})
+
+@login_required
 def get_messages(request, user_id):
     try:
         other_user = User.objects.get(id=user_id)
