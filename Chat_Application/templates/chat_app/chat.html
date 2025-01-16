@@ -40,7 +40,7 @@
          <div id="chat-box"></div>
          <div id="message-input">
             <input type="text" id="message" placeholder="Type your message">
-            <button onclick="sendMessage()">Send</button>
+            <button onclick="sendMessage()" id="send-button">Send</button>
          </div>
       </div>
       <div id="right-area">
@@ -59,13 +59,13 @@
             .then(response => response.json())
             .then(messages => {
                messages.forEach(msg => {
-                  chatBox.innerHTML += `<div class="${(currentUser == msg.sender) ? "sender" : "receiver"} message"><p><b>${msg.sender}:</b> ${msg.message}</p></div>`;
+                  chatBox.innerHTML += `<div class="${(currentUser == msg.sender) ? "sender" : "receiver"} message"><p>${msg.message}</p></div>`;
                });
             });
          chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${userId}/`);
          chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            chatBox.innerHTML += `<div class="sender-message"><p><b>${data.sender}:</b> ${data.message}</p></div>`;
+            chatBox.innerHTML += `<div class="${(currentUser == data.sender) ? "sender" : "receiver"} message"><p>${data.message}</p></div>`;
          };
          chatSocket.onclose = function () {
             console.log('WebSocket closed.');

@@ -91,7 +91,6 @@ main {
 #chat-area {
    transition: 0.3s ease;
    height: calc(100vh - 60px);
-   overflow-y: scroll;
    width: 70%;
    padding: 0 30px;
 }
@@ -101,12 +100,17 @@ main {
    justify-content: center;
    align-items: center;
 }
+#chat-box {
+   height: 95%;
+   overflow-y: scroll;
+}
 .message {
    padding: 10px 20px;
    margin: 10px 0;
    width: fit-content;
    clear: both;
    border-radius: 20px;
+   color: white
 }
 .sender {
    background: linear-gradient(to top, rgb(0, 81, 255), rgb(0, 162, 255));
@@ -114,4 +118,24 @@ main {
 }
 .receiver {
    background: linear-gradient(to top, rgb(0, 163, 35), rgb(0, 224, 37));
+}
+#message-input {
+   position: fixed;
+   bottom : 0;
+   width: 65%;
+   transition: 0.3s ease;
+   display: flex;
+   justify-content: center;
+}
+#message {
+   font-size: 18px;
+   width: 60vw;
+   transition: 0.3s ease;
+}
+#send-button {
+   padding: 10px 12px;
+   background-color: rgb(0, 185, 46);
+   border: none;
+   color: white;
+   cursor: pointer;
 }
