@@ -1,0 +1,117 @@
+* {
+   margin: 0;
+   box-sizing: border-box;
+   padding: 0;
+}
+
+nav {
+   padding: 15px 30px;
+   border-bottom: 1px solid lightgrey;
+}
+
+nav ul {
+   list-style-type: none;
+   display: flex;
+   font-family: Arial, Helvetica, sans-serif;
+   justify-content: space-between;
+}
+
+#logout-button {
+   background-color: rgb(230, 30, 30);
+   color: white;
+   font-size: 18px;
+   font-weight: bold;
+   text-decoration: none;
+   padding: 25px 30px;
+}
+
+#logout-button:hover {
+   background-color: rgb(206, 44, 44);
+}
+
+#toggle-sidebar {
+   height: fit-content;
+   position: fixed;
+   top: 60px;
+   left: 24px;
+   z-index: 12;
+   border: none;
+   padding: 5px;
+   background-color: white;
+   border-radius: 30px;
+   cursor: pointer;
+}
+
+#toggle-sidebar:hover {
+   background-color: rgb(240, 240, 240);
+}
+
+main {
+   display: flex;
+}
+
+#user-menu-container {
+   height: calc(100vh - 60px);
+   border-right: 1px solid lightgray;
+   width: 400px;
+   transition : 0.3s ease;
+}
+.collapsed {
+   transform: translateX(-300px);
+}
+#users-menu {
+   position: relative;
+   top: 48px;
+   opacity: 1;
+}
+.vanish {
+   display : none;
+}
+.user-container {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   padding: 10px 15px;
+   background-color: rgb(241, 241, 241);
+   border: 1px solid lightgray ;
+   cursor: pointer;
+}
+.user-container:hover {
+   background-color: rgb(228, 228, 228);
+}
+.user-container li {
+   font-size: 24px;
+   width: 100%;
+   height: 100%;
+}
+.user-img {
+   height: 60px;
+   border-radius: 40px;
+}
+#chat-area {
+   transition: 0.3s ease;
+   height: calc(100vh - 60px);
+   overflow-y: scroll;
+   width: 70%;
+   padding: 0 30px;
+}
+#right-area {
+   transition: 0.3s;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.message {
+   padding: 10px 20px;
+   margin: 10px 0;
+   width: fit-content;
+   clear: both;
+   border-radius: 20px;
+}
+.sender {
+   background: linear-gradient(to top, rgb(0, 81, 255), rgb(0, 162, 255));
+   float: right;
+}
+.receiver {
+   background: linear-gradient(to top, rgb(0, 163, 35), rgb(0, 224, 37));
+}

@@ -1,44 +1,71 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>Chat Application</title>
+   <link rel="stylesheet" type="text/css" href="{% static 'chat_app/styles.css' %}">
 </head>
 
 <body>
-   <div class="users-menu">
+   <nav>
       <ul>
-         {% for user in users %}
-         <li onclick="openChat('{{ user.id }}')">{{ user.username }}</li>
-         {% endfor %}
+         {% if user.is_authenticated %}
+         <li>
+            <h2>Welcome, {{ user.username }}!</h2>
+         </li>
+         <li><a href="{% url 'logout' %}" id="logout-button">Logout</a></li>
+         {% else %}
+         <li><a href="{% url 'login' %}">Login</a></li>
+         {% endif %}
       </ul>
-   </div>
-   <div id="chat-box"></div>
-   <div id="message-input">
-      <input type="text" id="message" placeholder="Type your message">
-      <button onclick="sendMessage()">Send</button>
-   </div>
+   </nav>
+   <button id="toggle-sidebar"><img src="{% static 'chat_app/hamburger.webp' %}" height="32"></button>
+   <main>
+      <div id="user-menu-container">
+         <div id="users-menu">
+            <ul type="none">
+               {% for other_user in users %}
+               <div class="user-container" onclick="openChat('{{ other_user.id }}', '{{ user.username }}')">
+                  <img src="{% static 'chat_app/user.jpg' %}" class="user-img" alt="">
+                  <li>{{ other_user.username }}</li>
+               </div>
+               {% endfor %}
+            </ul>
+         </div>
+      </div>
+      <div id="chat-area">
+         <div id="chat-box"></div>
+         <div id="message-input">
+            <input type="text" id="message" placeholder="Type your message">
+            <button onclick="sendMessage()">Send</button>
+         </div>
+      </div>
+      <div id="right-area">
+         <p>Right Area</p>
+      </div>
+   </main>
    <script>
       let chatSocket;
-      if (chatSocket) {
-         chatSocket.close();
-      }
-      function openChat(userId) {
+      function openChat(userId, currentUser) {
+         if (chatSocket) {
+            chatSocket.close();
+         }
          const chatBox = document.getElementById('chat-box');
          chatBox.innerHTML = '';
          fetch(`/messages/${userId}/`)
             .then(response => response.json())
             .then(messages => {
                messages.forEach(msg => {
-                  chatBox.innerHTML += `<p><b>${msg.sender}:</b> ${msg.message}</p>`;
+                  chatBox.innerHTML += `<div class="${(currentUser == msg.sender) ? "sender" : "receiver"} message"><p><b>${msg.sender}:</b> ${msg.message}</p></div>`;
                });
             });
          chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${userId}/`);
          chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
-            chatBox.innerHTML += `<p><b>${data.sender}:</b> ${data.message}</p>`;
+            chatBox.innerHTML += `<div class="sender-message"><p><b>${data.sender}:</b> ${data.message}</p></div>`;
          };
          chatSocket.onclose = function () {
             console.log('WebSocket closed.');
@@ -54,7 +81,7 @@
          }
       }
    </script>
-
+   <script src="{% static 'chat_app/script.js'%}"></script>
 </body>
 
 </html>
