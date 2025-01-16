@@ -16,7 +16,7 @@ Welcome to the Chat Application repository! This project is a real-time chat pla
 Clone this repository to your local machine using:
 ```bash
 git clone https://github.com/Akshaj2506/Django_Chat_App.git
-cd chat-application
+cd Django_Chat_App
 ```
 OR 
 Download the .zip file of this git repository and and extract the contents of the repository on your machine at a safe location.
