@@ -62,7 +62,7 @@
                   chatBox.innerHTML += `<div class="${(currentUser == msg.sender) ? "sender" : "receiver"} message"><p>${msg.message}</p></div>`;
                });
             });
-         chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${userId}/`);
+         chatSocket = new WebSocket(`wss://${window.location.host}/ws/chat/${userId}/`);
          chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             chatBox.innerHTML += `<div class="${(currentUser == data.sender) ? "sender" : "receiver"} message"><p>${data.message}</p></div>`;
