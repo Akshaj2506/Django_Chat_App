@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'django-chat-app-rzzq.onrender.com'
 ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-chat-app-rzzq.onrender.com',  # Replace with your actual domain
+]
 
 
 # Application definition
