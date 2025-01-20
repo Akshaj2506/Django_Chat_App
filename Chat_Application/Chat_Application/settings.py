@@ -26,12 +26,12 @@ SECRET_KEY = 'django-insecure-x^yf_i6hm&(mpa(4nh!x4+tu6zj=1#hr*poz=ikz9$1kq@#(28
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'django-chat-app-rzzq.onrender.com',
-    '127.0.0.1'
+    'django-chat-app-rzzq.onrender.com'
+    # '127.0.0.1'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://django-chat-app-rzzq.onrender.com',
-    '127.0.0.1'
+    'https://django-chat-app-rzzq.onrender.com'
+    # '127.0.0.1'
 ]
 
 
