@@ -139,3 +139,11 @@ main {
    color: white;
    cursor: pointer;
 }
+@media (max-width: 992px) {
+   #right-area {
+      display: none;
+   }
+   #chat-area {
+      width: 95%;
+   }
+}
